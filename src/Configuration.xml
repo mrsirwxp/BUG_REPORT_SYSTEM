@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <typeAliases> 
+        <typeAlias alias="User" type="com.pojo.User"/>
+        <typeAlias alias="Bug" type="com.pojo.Bug"/>
+        <typeAlias alias="Comment" type="com.pojo.Comment"/>
+        <typeAlias alias="Images" type="com.pojo.Images"/>
+        <typeAlias alias="Project" type="com.pojo.Project"/>
+        <typeAlias alias="Page" type="com.pojo.Page"/>
+    </typeAliases> 
+    
+
+    <environments default="development">
+        <environment id="development">
+        <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+            <property name="driver" value="oracle.jdbc.driver.OracleDriver"/>
+            <property name="url" value="jdbc:oracle:thin:@localhost:1521/wxpdb" />
+            <property name="username" value="wxplocal"/>
+            <property name="password" value="sunny12345"/>
+            </dataSource>
+        </environment>
+    </environments>
+    
+    <mappers>
+        <mapper resource="com/pojo/pojo.xml"/>
+        <mapper resource="com/pojo/bug.xml"/>
+    </mappers>
+    
+</configuration>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+	<bean id="login" class="org.springframework.web.servlet.view.JstlView">
+		<property name="url" value="/WEB-INF/jsp/login.jsp"></property>
+	</bean>
+	
+	<bean id="main" class="org.springframework.web.servlet.view.JstlView">
+		<property name="url" value="/WEB-INF/jsp/main.jsp"></property>
+	</bean>
+	<bean id="welcome" class="org.springframework.web.servlet.view.JstlView">
+		<property name="url" value="/WEB-INF/jsp/welcome.jsp"></property>
+	</bean>
+	<bean id="newbug" class="org.springframework.web.servlet.view.JstlView">
+		<property name="url" value="/WEB-INF/jsp/newbug.jsp"></property>
+	</bean>
+	<bean id="success" class="org.springframework.web.servlet.view.JstlView">
+		<property name="url" value="/WEB-INF/jsp/success.jsp"></property>
+	</bean>
+	
+	<bean id="error" class="org.springframework.web.servlet.view.JstlView">
+		<property name="url" value="/WEB-INF/jsp/error.jsp"></property>
+	</bean>
+	
+	<bean id="allbugs" class="org.springframework.web.servlet.view.JstlView">
+		<property name="url" value="/WEB-INF/jsp/allbugsList.jsp"></property>
+	</bean>
+	
+	<bean id="bugsDetail" class="org.springframework.web.servlet.view.JstlView">
+		<property name="url" value="/WEB-INF/jsp/bugsDetail.jsp"></property>
+	</bean>
+	
+	<bean id="allSolvedBug" class="org.springframework.web.servlet.view.JstlView">
+		<property name="url" value="/WEB-INF/jsp/allSolvedBug.jsp"></property>
+	</bean>
+	
+	<bean id="stillNotSolvedBug" class="org.springframework.web.servlet.view.JstlView">
+		<property name="url" value="/WEB-INF/jsp/stillNotSolvedBug.jsp"></property>
+	</bean>
+	
+	<bean id="bugToMe" class="org.springframework.web.servlet.view.JstlView">
+		<property name="url" value="/WEB-INF/jsp/bugToMe.jsp"></property>
+	</bean>
+	
+	<bean id="mySubmitBug" class="org.springframework.web.servlet.view.JstlView">
+		<property name="url" value="/WEB-INF/jsp/mySubmitBug.jsp"></property>
+	</bean>
+	
+	<bean id="regestUser" class="org.springframework.web.servlet.view.JstlView">
+		<property name="url" value="/WEB-INF/jsp/regestUser.jsp"></property>
+	</bean>
+	
+	<bean id="regestUserSuccess" class="org.springframework.web.servlet.view.JstlView">
+		<property name="url" value="/WEB-INF/jsp/regestUserSuccess.jsp"></property>
+	</bean>
+	
+	<bean id="myAccount" class="org.springframework.web.servlet.view.JstlView">
+		<property name="url" value="/WEB-INF/jsp/myAccount.jsp"></property>
+	</bean>
+	
+	<bean id="projectMangeList" class="org.springframework.web.servlet.view.JstlView">
+		<property name="url" value="/WEB-INF/jsp/projectMangeList.jsp"></property>
+	</bean>
+
+</beans>

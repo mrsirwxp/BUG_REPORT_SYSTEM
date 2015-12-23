@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+	<!-- 本机 -->
+	<!-- <bean id="mydataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName"><value>oracle.jdbc.driver.OracleDriver</value></property>
+		<property name="url"><value>jdbc:oracle:thin:@localhost:1521/wxpdb</value></property>
+		<property name="username"><value>wxplocal</value></property>
+		<property name="password"><value>sunny12345</value></property>
+	</bean> -->
+	
+	<bean id="mydataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName"><value>oracle.jdbc.driver.OracleDriver</value></property>
+		<property name="url"><value>jdbc:oracle:thin:@10.1.213.110:1521/khfw</value></property>
+		<property name="username"><value>chl</value></property>
+		<property name="password"><value>chl</value></property>
+	</bean>
+	
+	<bean id ="dbConnection" class="com.util.DBConnection">
+		<property name="dataSource" ref="mydataSource" />
+	</bean>
+	
+	<bean id="iUserdao" class="com.dao.impl.UserDB">
+	</bean>
+	<bean id="iBugsDao" class="com.dao.impl.BugDB">
+	</bean>
+</beans>

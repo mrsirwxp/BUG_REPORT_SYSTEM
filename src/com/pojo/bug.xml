@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.pojo.options.IBugOptions">
+	<insert id="addBug" parameterType="Bug" > 
+        <selectKey  keyProperty="bugid" resultType="string" order="AFTER">
+        	SELECT seq_bugs.currval FROM DUAL 
+        </selectKey>
+       insert into BUGS(BUGID,TITLE,DESCRIPTION,CREATEUSERID,
+		                CREATETIME,PROCESSUSERID,PROJECTID,STATUS,OCCURTIME,LEAVEL)
+		values(seq_bugs.nextval,#{title},#{description},#{createuserid},
+					to_char(sysdate,'yyyy-mm-dd hh24:mi:ss'),#{processuserid},#{projectid},'1',#{occurtime},#{leavel}) 
+    </insert>
+    
+    
+    <insert id="addImage" parameterType="Images" > 
+        insert into IMAGE(IMGID,BUGID,IMGSRC) values(seq_imgs.nextval,#{bugid},#{imgsrc}) 
+    </insert>
+    
+    <select id="selectAllBugs" parameterType="Page" resultType="Bug">
+       select * from  
+       			(select rownum dd,m.* from (select t.*   from bugs t order by t.bugid desc) m) n 
+       			where n.dd &gt;= #{start} and n.dd &lt; #{end}
+    </select>
+    
+    <select id="selectCommentByBugID" parameterType="string" resultType="Comment">
+       select * from COMM t where t.bugid=#{bugid}
+    </select>
+    
+    <select id="selectImagesByBugID" parameterType="string" resultType="Images">
+       select * from IMAGE t where t.bugid=#{bugid}
+    </select>
+    
+    <select id="selectUserByUID" parameterType="string" resultType="User">
+       select * from USERS t where t.userid=#{uid}
+    </select>
+    
+    <select id="selectBugByID" parameterType="string" resultType="Bug">
+       select * from BUGS t where t.bugid =#{bugid}
+    </select>
+    
+    <update id="updateBugStatus" parameterType="Bug">
+    	update bugs b set b.status=#{status} where b.bugid=#{bugid}
+    </update>
+    
+    <update id="updateBugProcessUserid" parameterType="Bug">
+    	update bugs b set b.processuserid=#{processuserid} where b.bugid=#{bugid}
+    </update>
+    
+    <insert id="addComment" parameterType="Comment" > 
+        insert into COMM(COMMENTID,CONTENT,TIME,USERID,BUGID) 
+        values(seq_comms.nextval,#{content},to_char(sysdate,'yyyy-mm-dd hh24:mi:ss'),#{userid},#{bugid}) 
+    </insert>
+    
+    
+    <select id="selectProjects" resultType="Project">
+       select * from PROJECT
+    </select>
+    <select id="selectProjectByID" resultType="Project" parameterType="string">
+      select * from PROJECT t where t.id=#{proId}
+    </select>
+    
+    <select id="selectUsers" resultType="User">
+      select t.userid,t.uname ,t.imgsrc from USERS t where t.isdeveloper = '1' 
+    </select>
+    
+    <select id="bugToMeCount" resultType="string" parameterType="string">
+      select count(distinct(t.bugid)) c from BUGS t where (t.processuserid=#{uid} and t.status in ('1','4','5'))  or (t.createuserid=#{uid} and t.status ='2')
+    </select>
+    
+    <select id="mySubmitBugCount" resultType="string" parameterType="string">
+     select count(distinct(t.bugid)) c from BUGS t where t.createuserid=#{uid}
+    </select>
+    
+    <select id="stillNotSolvedBugCount" resultType="string" >
+     select count(distinct(t.bugid)) c from BUGS t where t.status!='3'
+    </select>
+    
+    <select id="allBugCount" resultType="string" >
+     select count(distinct(t.bugid)) c from BUGS t 
+    </select>
+    
+    <select id="allSolvedBugCount" resultType="string" >
+     select count(distinct(t.bugid)) c from BUGS t where t.status='3'
+    </select>
+    
+    <select id="selectbugToMe" resultType="Bug" parameterType="Page">
+     select * from  (select rownum dd,m.* from (select  t.*   from BUGS t where (t.processuserid=#{uid} and t.status in ('1','4','5'))  or (t.createuserid=#{uid} and t.status ='2') order by t.bugid desc) m) n where n.dd &gt;= #{start} and n.dd &lt; #{end}
+    </select>
+    
+    <select id="mySubmitBug" resultType="Bug" parameterType="Page">
+	    select * from  (select rownum dd,m.* from (select t.*   from BUGS t where t.createuserid=#{uid}  order by t.bugid desc) m) n
+	     where n.dd &gt;= #{start} and n.dd &lt; #{end}
+    </select>
+    
+    <select id="stillNotSolvedBug" resultType="Bug" parameterType="Page">
+	    select * from  (select rownum dd,m.* from (select t.*   from BUGS t where t.status!='3'  order by t.bugid desc) m) n where n.dd &gt;= #{start} and n.dd &lt; #{end}
+    </select>
+    
+    <select id="allSolvedBug" resultType="Bug" parameterType="Page">
+	    select * from  (select rownum dd,m.* from (select t.*   from BUGS t where t.status='3'  order by t.bugid desc) m) n where n.dd &gt;= #{start} and n.dd &lt; #{end}
+    </select>
+    
+    <insert id="addPro" parameterType="Project" > 
+        <selectKey  keyProperty="id" resultType="string" order="BEFORE">
+        	SELECT seq_project.nextval id FROM DUAL 
+        </selectKey>
+       insert into project (id,pro_name,description) values (seq_project.currval,#{pro_name},#{description}) 
+    </insert>
+    
+    <select id="selectProCount" resultType="string" >
+	    select count(*) c from PROJECT t
+    </select>
+    
+    <update id="activePro" parameterType="Project">
+    		update project p set p.islive=#{islive} where p.id=#{id}
+    </update>
+    
+    
+</mapper>
+    

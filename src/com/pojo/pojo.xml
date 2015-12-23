@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.pojo.options.IUserOptions">
+
+    <select id="userLogin" parameterType="User" resultType="User">
+       select *  from USERS u where u.userid=#{userid} and u.pswd=#{pswd}
+    </select>
+    
+    
+    <insert id="addUser" parameterType="User" > 
+        <selectKey  keyProperty="userid" resultType="string" order="BEFORE">
+        	SELECT seq_users.nextval userid FROM DUAL 
+        </selectKey>
+        insert into USERS (userid, uname, pswd, createtime, imgsrc, isdeveloper,email)
+          values (seq_users.currval,#{uname}, #{pswd}, to_char(sysdate,'yyyy-mm-dd hh24:mi:ss') , 'img/userhead.png', #{isdeveloper},#{email})
+    </insert>
+    <update id="uploadHeadImg" parameterType="User">
+    	update users u set u.imgsrc=#{imgsrc} where u.userid=#{userid}
+    </update>
+    
+    <update id="upDateUInfo" parameterType="User">
+    	update users u set u.uname=#{uname},u.pswd=#{pswd},u.email=#{email} where u.userid=#{userid}
+    </update>
+    
+    
+</mapper>
+    
